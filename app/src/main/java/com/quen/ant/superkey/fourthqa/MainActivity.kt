@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
+import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
@@ -103,7 +104,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
             binding.imgExit.visibility = View.VISIBLE
             binding.clMainWrong.visibility = View.GONE
             binding.clMainQa.visibility = View.VISIBLE
-            binding.llTime.visibility = View.GONE
+            binding.llTime.visibility = View.VISIBLE
             setQaDataList()
         }
         binding.imgSetting.setOnClickListener {
@@ -111,6 +112,11 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                 return@setOnClickListener
             }
             qaState = binding.clMainQa.isVisible
+            if (binding.imgSM.isVisible) {
+                binding.tvStartOrStop.visibility = View.GONE
+            } else {
+                binding.tvStartOrStop.visibility = View.VISIBLE
+            }
             binding.clMainSetting.visibility = View.VISIBLE
             binding.imgSM.visibility = View.GONE
             binding.clMainQa.visibility = View.GONE
@@ -259,6 +265,11 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         saveData()
         lifecycleScope.launch {
             delay(1000)
+            if (result == 0) {
+                binding.tvWrong.text = getString(R.string.time_s_up)
+            } else {
+                binding.tvWrong.text = getString(R.string.your_answer_is_wrong)
+            }
             binding.clMainWrong.visibility = View.VISIBLE
             binding.clMainQa.visibility = View.GONE
             updateProgress()
@@ -267,6 +278,10 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun clickTOAnswer(view: View) {
+        if (!viewModel.isCounting) {
+            Toast.makeText(this, "Please start the game first", Toast.LENGTH_SHORT).show()
+            return
+        }
         when (view.id) {
             R.id.constraintLayout_1 -> {
                 if (qaData.result == 1) {

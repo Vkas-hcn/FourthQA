@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Fourth QA</string>
+    <string name="time_s_up">The answer time has expired</string>
+    <string name="your_answer_is_wrong">Your answer is wrong</string>
 </resources>
