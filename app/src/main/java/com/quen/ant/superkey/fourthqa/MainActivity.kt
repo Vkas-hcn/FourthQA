@@ -112,11 +112,11 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                 return@setOnClickListener
             }
             qaState = binding.clMainQa.isVisible
-            if (binding.imgSM.isVisible) {
-                binding.tvStartOrStop.visibility = View.GONE
-            } else {
-                binding.tvStartOrStop.visibility = View.VISIBLE
-            }
+//            if (binding.imgSM.isVisible) {
+//                binding.tvStartOrStop.visibility = View.GONE
+//            } else {
+//                binding.tvStartOrStop.visibility = View.VISIBLE
+//            }
             binding.clMainSetting.visibility = View.VISIBLE
             binding.imgSM.visibility = View.GONE
             binding.clMainQa.visibility = View.GONE
